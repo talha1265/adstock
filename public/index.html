@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Bitcoin & Stock Market News</title>
+  <link rel="stylesheet" href="../src/css/styles.css"> <!-- Ensure the path to your CSS is correct -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- For Font Awesome Icons -->
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="../src/assets/adsto.png" alt="Logo"> <!-- Replace with your actual logo -->
+    </div>
+    <div class="ham">
+      <button class="nav-toggle" onclick="toggleNavbar()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <nav id="navbar-links" class="navbar">
+      <a href="./index.html">Home</a>
+      <a href="./study.html">Study Material</a>
+      <a href="./paid.html">Paid Indicator</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero">
+      <div class="hero-content">
+        <div class="left-content">
+          <img src="../src/assets/bit1.png" alt="Bitcoin Logo" class="bitcoin-logo">
+        </div>
+        <div class="right-content">
+          <p id="bitcoin-price">Loading...</p> <!-- Initial placeholder for price -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Description Box Section -->
+    <section id="description-box" style="padding: 20px; background: #fff; margin: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+      <h2>Welcome to Our Platform</h2>
+      <p>Here, you can access the latest Bitcoin prices and stock market news. Stay informed and ahead of the curve!</p>
+      <button style="padding: 10px 20px; background: #2a5298; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Learn More</button>
+    </section>
+
+    <!-- News Section -->
+    <section id="news">
+      <h2>Latest News</h2>
+      <div id="news-container" class="news-container"></div>
+    </section>
+
+    <!-- Thank You Box Section -->
+    <section id="thank-you-box" style="padding: 20px; background: #f7f7f7; margin: 20px; border-radius: 10px; text-align: center;">
+      <p>Thank you so much for visiting our website!</p>
+      <button style="padding: 10px 20px; background: #1e3c72; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Contact Us</button>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer style="background: #2a5298; color: #fff; text-align: center; padding: 20px;">
+    <div class="footer-logo-links" style="margin-bottom: 10px;">
+      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>&copy; 2025 ADSTOCK. All rights reserved.</p>
+  </footer>
+
+  <script src="../src/js/bitcoin.js"></script> <!-- Ensure the path is correct -->
+  <script src="../src/js/stockNews.js"></script> <!-- Ensure the path is correct -->
+  <script src="../src/js/ham.js"></script> 
+</body>
+</html>
