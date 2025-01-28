@@ -1,4 +1,4 @@
-const url = 'https://google-news13.p.rapidapi.com/business?lr=en-IND';
+const url = 'https://google-news13.p.rapidapi.com/business?lr=en-US';
 const options = {
   method: 'GET',
   headers: {
@@ -16,9 +16,6 @@ const fetchAndRenderNews = async () => {
     }
 
     const result = await response.json();
-
-    // Debug the API response to check the structure
-    console.log('API Response:', result);
 
     // Validate if the response contains the expected structure
     if (result.status === 'success' && result.items && result.items.length > 0) {
@@ -43,14 +40,11 @@ const renderNews = (articles) => {
 
   newsContainer.innerHTML = ''; // Clear existing content
 
-  articles.forEach((article, index) => {
+  articles.forEach((article) => {
     const newsCard = document.createElement('div');
     newsCard.className = 'news-card';
 
     const timeAgo = getTimeAgo(new Date(Number(article.timestamp))); // Convert timestamp to date
-
-    // Debugging image URL
-    console.log(`Article ${index} thumbnail:`, article.images?.thumbnail);
 
     newsCard.innerHTML = `
       ${
@@ -69,20 +63,17 @@ const renderNews = (articles) => {
 
     // Handle subnews if available
     if (article.hasSubnews && article.subnews) {
-      article.subnews.forEach((subArticle, subIndex) => {
+      article.subnews.forEach((subArticle) => {
         const subNewsCard = document.createElement('div');
         subNewsCard.className = 'subnews-card';
 
         const subTimeAgo = getTimeAgo(new Date(Number(subArticle.timestamp)));
 
-        // Debugging subnews image URL
-        console.log(`Subnews ${index}-${subIndex} thumbnail:`, subArticle.images?.thumbnail);
-
         subNewsCard.innerHTML = `
           ${
             subArticle.images && subArticle.images.thumbnail
               ? `<img src="${subArticle.images.thumbnail}" alt="${subArticle.title}" class="subnews-banner">`
-              : '<img src="default-subnews.jpg" alt="Default Subnews Image" class="subnews-banner">'
+              : ''
           }
           <h4>${subArticle.title}</h4>
           <p>${subArticle.snippet || 'No snippet available.'}</p>
