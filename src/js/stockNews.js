@@ -1,43 +1,72 @@
-const fetchNews = async () => {
+const url = 'https://google-news13.p.rapidapi.com/business?lr=en-US';
+const options = {
+  method: 'GET',
+  headers: {
+    'x-rapidapi-key': '8b8dba35a2msh81a6fb2f86718b3p15474ejsn0cfc3be72820',
+    'x-rapidapi-host': 'google-news13.p.rapidapi.com',
+  },
+};
+
+// Function to fetch and render news
+const fetchAndRenderNews = async () => {
   try {
-    const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5a80ecf6c29f4879bcc69cb53f9b58cb`
-    );
-    const data = await response.json();
-    console.log(data);
-    renderNews(data.articles);
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    // Validate if the response contains the expected structure
+    if (result.status === 'success' && result.items && result.items.length > 0) {
+      renderNews(result.items);
+    } else {
+      console.error('Unexpected API response structure:', result);
+      displayError('No news articles found.');
+    }
   } catch (error) {
     console.error('Error fetching news:', error);
-    const newsContainer = document.getElementById('news-container');
-    newsContainer.innerHTML = '<p>Error fetching news. Please try again later.</p>';
+    displayError('Error fetching news. Please try again later.');
   }
 };
 
+// Function to render news items
 const renderNews = (articles) => {
   const newsContainer = document.getElementById('news-container');
-  newsContainer.innerHTML = ''; // Clear any existing news
+  if (!newsContainer) {
+    console.error('No news-container element found on the page.');
+    return;
+  }
 
-  articles.slice(0, 10).forEach((article) => {
+  newsContainer.innerHTML = ''; // Clear existing content
+
+  articles.forEach((article) => {
     const newsCard = document.createElement('div');
     newsCard.className = 'news-card';
 
-    const timeAgo = getTimeAgo(article.publishedAt);
+    const timeAgo = getTimeAgo(new Date(Number(article.timestamp))); // Convert timestamp to date
 
     newsCard.innerHTML = `
-      ${article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title}" class="news-banner">` : ''}
+      ${
+        article.images && article.images[0]
+          ? `<img src="${article.images[0]}" alt="${article.title}" class="news-banner">`
+          : ''
+      }
       <h3>${article.title}</h3>
-      <p>${article.description || 'No description available'}</p>
+      <p>${article.snippet || 'No snippet available.'}</p>
+      <p class="news-publisher">Published by: ${article.publisher}</p>
       <p class="news-date">${timeAgo}</p>
-      <a href="${article.url}" target="_blank" rel="noopener noreferrer">Read More</a>
+      <a href="${article.newsUrl}" target="_blank" rel="noopener noreferrer">Read More</a>
     `;
+
     newsContainer.appendChild(newsCard);
   });
 };
 
+// Function to calculate time ago
 const getTimeAgo = (date) => {
   const now = new Date();
-  const newsDate = new Date(date);
-  const diffInMs = now - newsDate;
+  const diffInMs = now - date;
   const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
   const diffInHours = Math.floor(diffInMinutes / 60);
   const diffInDays = Math.floor(diffInHours / 24);
@@ -47,5 +76,13 @@ const getTimeAgo = (date) => {
   return `${diffInDays} days ago`;
 };
 
-// Fetch news on page load
-fetchNews();
+// Function to display errors
+const displayError = (message) => {
+  const newsContainer = document.getElementById('news-container');
+  if (newsContainer) {
+    newsContainer.innerHTML = `<p>${message}</p>`;
+  }
+};
+
+// Fetch and render news on page load
+fetchAndRenderNews();
