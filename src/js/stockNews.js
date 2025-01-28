@@ -1,4 +1,4 @@
-const url = 'https://google-news13.p.rapidapi.com/business?lr=en-US';
+const url = 'https://google-news13.p.rapidapi.com/business?lr=en-IND';
 const options = {
   method: 'GET',
   headers: {
