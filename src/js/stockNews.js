@@ -48,9 +48,9 @@ const renderNews = (articles) => {
 
     newsCard.innerHTML = `
       ${
-        article.images && article.images.length > 0
-          ? `<img src="${article.images[0]}" alt="${article.title}" class="news-banner">`
-          : '<img src="default-image.jpg" alt="Default Image" class="news-banner">' // Placeholder image if no image is provided
+        article.images && article.images.thumbnail
+          ? `<img src="${article.images.thumbnail}" alt="${article.title}" class="news-banner">`
+          : '<img src="default-image.jpg" alt="Default Image" class="news-banner">' // Placeholder image if no thumbnail is provided
       }
       <h3>${article.title}</h3>
       <p>${article.snippet || 'No snippet available.'}</p>
@@ -60,6 +60,31 @@ const renderNews = (articles) => {
     `;
 
     newsContainer.appendChild(newsCard);
+
+    // Handle subnews if available
+    if (article.hasSubnews && article.subnews) {
+      article.subnews.forEach((subArticle) => {
+        const subNewsCard = document.createElement('div');
+        subNewsCard.className = 'subnews-card';
+
+        const subTimeAgo = getTimeAgo(new Date(Number(subArticle.timestamp)));
+
+        subNewsCard.innerHTML = `
+          ${
+            subArticle.images && subArticle.images.thumbnail
+              ? `<img src="${subArticle.images.thumbnail}" alt="${subArticle.title}" class="subnews-banner">`
+              : ''
+          }
+          <h4>${subArticle.title}</h4>
+          <p>${subArticle.snippet || 'No snippet available.'}</p>
+          <p class="subnews-publisher">Published by: ${subArticle.publisher}</p>
+          <p class="subnews-date">${subTimeAgo}</p>
+          <a href="${subArticle.newsUrl}" target="_blank" rel="noopener noreferrer">Read More</a>
+        `;
+
+        newsContainer.appendChild(subNewsCard);
+      });
+    }
   });
 };
 
