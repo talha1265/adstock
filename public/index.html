@@ -58,16 +58,45 @@
     </section>
   </main>
 
-  <!-- Footer Section -->
-  <footer style="background: #2a5298; color: #fff; text-align: center; padding: 20px;">
-    <div class="footer-logo-links" style="margin-bottom: 10px;">
-      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
-      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
-    </div>
-    <p>&copy; 2025 ADSTOCK. All rights reserved.</p>
-  </footer>
+<!-- Footer Section -->
+<footer style="background: #2a5298; color: #fff; text-align: center; padding: 20px;">
+  <div class="footer-logo-links" style="margin-bottom: 10px;">
+    <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+    <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+  </div>
+  <p>&copy; 2025 ADSTOCK. All rights reserved. <a href="#privacy-policy" id="privacy-link" style="color: #fff; text-decoration: underline;">Privacy and Policy</a></p>
+</footer>
+
+<!-- Privacy Policy Content -->
+<div id="page-content" style="padding: 20px; display: none; text-align: center;">
+  <h2>Privacy and Policy</h2>
+  <p>This is the Privacy and Policy page content for ADSTOCK. Please read the terms carefully.</p>
+</div>
+
+<script>
+  // Add an event listener to the Privacy and Policy link
+  document.getElementById("privacy-link").addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent default link behavior
+    const url = "#privacy-policy";
+    window.history.pushState({}, "", url); // Update the URL
+    showPrivacyPolicy(); // Show the privacy policy content
+  });
+
+  // Function to display the privacy policy content
+  function showPrivacyPolicy() {
+    const pageContent = document.getElementById("page-content");
+    pageContent.style.display = "block"; // Show the content
+  }
+
+  // Handle the page load for the URL with #privacy-policy
+  window.addEventListener("load", function () {
+    if (window.location.hash === "#privacy-policy") {
+      showPrivacyPolicy(); // Show the privacy policy content if the hash matches
+    }
+  });
+</script>
 
   <script src="../src/js/bitcoin.js"></script> <!-- Ensure the path is correct -->
   <script src="../src/js/stockNews.js"></script> <!-- Ensure the path is correct -->
