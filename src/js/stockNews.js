@@ -48,9 +48,9 @@ const renderNews = (articles) => {
 
     newsCard.innerHTML = `
       ${
-        article.images && article.images[0]
+        article.images && article.images.length > 0
           ? `<img src="${article.images[0]}" alt="${article.title}" class="news-banner">`
-          : ''
+          : '<img src="default-image.jpg" alt="Default Image" class="news-banner">' // Placeholder image if no image is provided
       }
       <h3>${article.title}</h3>
       <p>${article.snippet || 'No snippet available.'}</p>
